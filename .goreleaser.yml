@@ -1,0 +1,11 @@
+builds:
+  - binary: envkey-source
+    ldflags: '-extldflags "-static"'
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+      - freebsd
+
