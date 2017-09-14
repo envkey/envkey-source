@@ -31,18 +31,18 @@ import (
 )
 
 var cacheDir string
-var shouldCache bool
+var noCache bool
 var force bool
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use: `eval $(envkey-source YOUR-ENVKEY [flags])
+	Use: `eval $(envkey-source ENVKEY [flags])
 or just:
-eval $(envkey-source [flags])
+  eval $(envkey-source [flags])
 if you have a .env file in the current directory that includes ENVKEY=...`,
 	Short: "Sets shell environment variables with an ENVKEY",
 	Run: func(cmd *cobra.Command, args []string) {
-		opts := fetch.FetchOptions{shouldCache, cacheDir}
+		opts := fetch.FetchOptions{ShouldCache: !noCache, CacheDir: cacheDir}
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts))
 		} else {
@@ -68,7 +68,7 @@ func Execute() {
 }
 
 func init() {
-	RootCmd.Flags().BoolVarP(&force, "force", "f", false, "overwrite existing environment variables and/or other entries in .env file (default is false)")
-	RootCmd.Flags().BoolVar(&shouldCache, "cache", false, "cache encrypted config as a local backup if enabled for org (default is false)")
+	RootCmd.Flags().BoolVarP(&force, "force", "f", false, "overwrite existing environment variables and/or other entries in .env file")
+	RootCmd.Flags().BoolVar(&noCache, "no-cache", false, "do NOT cache encrypted config as a local backup")
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 }
