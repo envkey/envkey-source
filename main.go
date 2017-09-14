@@ -29,6 +29,6 @@ import (
 var version = "master"
 
 func main() {
-	fmt.Println(verison)
+	fmt.Println(version)
 	cmd.Execute()
 }

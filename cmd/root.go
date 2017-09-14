@@ -30,12 +30,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-b, err := ioutil.ReadFile("version.txt") // just pass the file name
-if err != nil {
-    fmt.Print(err)
-}
-var Version string
-
 var cacheDir string
 var noCache bool
 var force bool
@@ -50,7 +44,7 @@ if you have a .env file in the current directory that includes ENVKEY=...`,
 	Short: "Sets shell environment variables with an ENVKEY",
 	Run: func(cmd *cobra.Command, args []string) {
 		if printVersion {
-			fmt.Println(Version)
+
 			return
 		}
 
