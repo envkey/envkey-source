@@ -30,9 +30,9 @@ else
   ARCH="386"
 fi
 
-curl -s -o version.txt https://raw.githubusercontent.com/envkey/envkey-source/master/version.txt
-VERSION=$(cat version.txt)
-rm version.txt
+curl -s -o .ek_tmp_version https://raw.githubusercontent.com/envkey/envkey-source/master/version.txt
+VERSION=$(cat .ek_tmp_version)
+rm .ek_tmp_version
 
 function welcome_envkey {
   echo "envkey-source $VERSION Quick Install"
@@ -48,7 +48,12 @@ function download_envkey {
   curl -s -o envkey-source.tar.gz "${url}"
   tar zxf envkey-source.tar.gz
 
-  mv envkey-source /usr/local/bin/
+  if [ "$PLATFORM" == "darwin" ]; then
+    mv envkey-source /usr/local/bin/
+  else
+    sudo envkey-source /usr/local/bin/
+  fi
+
   echo "envkey-source is installed in /usr/local/bin"
 
   rm envkey-source.tar.gz
