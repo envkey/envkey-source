@@ -36,7 +36,10 @@ var force bool
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "eval $(envkey-source YOUR-ENVKEY) - or just `eval $(envkey-source)` if you have a .env file in the current directory that includes ENVKEY=...",
+	Use: `eval $(envkey-source YOUR-ENVKEY [flags])
+or just:
+eval $(envkey-source [flags])
+if you have a .env file in the current directory that includes ENVKEY=...`,
 	Short: "Sets shell environment variables with an ENVKEY",
 	Run: func(cmd *cobra.Command, args []string) {
 		opts := fetch.FetchOptions{shouldCache, cacheDir}
