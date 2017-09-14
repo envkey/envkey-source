@@ -22,6 +22,10 @@ package main
 
 import "github.com/envkey/envkey-source/cmd"
 
+// This allows Goreleaser to pass in main.version, then we make it public for other packages
+var version = "master"
+
 func main() {
+	cmd.Version = version
 	cmd.Execute()
 }
