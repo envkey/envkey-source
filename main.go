@@ -20,12 +20,15 @@
 
 package main
 
-import "github.com/envkey/envkey-source/cmd"
+import (
+	"fmt"
 
-// This allows Goreleaser to pass in main.version, then we make it public for other packages
+	"github.com/envkey/envkey-source/cmd"
+)
+
 var version = "master"
 
 func main() {
-	cmd.Version = version
+	fmt.Println(verison)
 	cmd.Execute()
 }
