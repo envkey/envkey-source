@@ -21,14 +21,9 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/envkey/envkey-source/cmd"
 )
 
-var version = "master"
-
 func main() {
-	fmt.Println(version)
 	cmd.Execute()
 }
