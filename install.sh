@@ -51,7 +51,7 @@ function download_envkey {
   if [ "$PLATFORM" == "darwin" ]; then
     mv envkey-source /usr/local/bin/
   else
-    sudo envkey-source /usr/local/bin/
+    sudo mv envkey-source /usr/local/bin/
   fi
 
   echo "envkey-source is installed in /usr/local/bin"
