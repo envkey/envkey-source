@@ -3,19 +3,24 @@ package shell
 import (
 	"encoding/json"
 	"os"
+	"strings"
 
 	"github.com/envkey/envkey-fetch/fetch"
 )
 
 func Source(envkey string, force bool, options fetch.FetchOptions) string {
-	fetchedJson := fetch.Fetch(envkey, options)
+	fetchRes := fetch.Fetch(envkey, options)
 
-	if fetchedJson == "" {
+	if strings.HasPrefix(fetchRes, "error: ") {
+		return "echo '" + fetchRes + "'"
+	}
+
+	if fetchRes == "" {
 		return "echo 'error: ENVKEY invalid.'"
 	}
 
 	var resMap map[string]string
-	err := json.Unmarshal([]byte(fetchedJson), &resMap)
+	err := json.Unmarshal([]byte(fetchRes), &resMap)
 
 	if err != nil {
 		return "echo 'error: There was a problem parsing EnvKey's response.'"
