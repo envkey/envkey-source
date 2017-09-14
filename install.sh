@@ -1,16 +1,16 @@
-#!/usr/bin/env bash
+# !/usr/bin/env bash
 
 case "$(uname -s)" in
  Darwin)
-   platform='darwin'
+   PLATFORM='darwin'
    ;;
 
  Linux)
-   platform='linux'
+   PLATFORM='linux'
    ;;
 
  FreeBSD)
-   platform='freebsd'
+   PLATFORM='freebsd'
    ;;
 
  CYGWIN*|MINGW32*|MSYS*)
@@ -18,43 +18,46 @@ case "$(uname -s)" in
    exit 1
    ;;
 
+ *)
    echo "Platform may or may not be supported. Will attempt to install."
-   platform= 'linux'
+   PLATFORM='linux'
    ;;
 esac
 
 if [[ "$(uname -m)" == 'x86_64' ]]; then
-  arch="amd64"
+  ARCH="amd64"
 else
-  arch="386"
-end
+  ARCH="386"
+fi
 
 curl -s -o version.txt https://raw.githubusercontent.com/envkey/envkey-source/master/version.txt
 VERSION=$(cat version.txt)
 rm version.txt
 
 function welcome_envkey {
-  echo "envkey-source ($VERSION) Quick Install"
+  echo "envkey-source $VERSION Quick Install"
   echo "Copyright (c) 2017 Envkey Inc. - MIT License"
   echo "https://github.com/envkey/envkey-source"
   echo ""
 }
 
 function download_envkey {
-  echo "Downloading envkey-source binary for ${platform}-${arch}"
-  curl -s -o envkey-source.tar.gz "https://raw.githubusercontent.com/envkey/envkey-source/master/dist/envkey-source_${platform}_${arch}.tar.gz"
+  echo "Downloading envkey-source binary for ${PLATFORM}-${ARCH}"
+  url="https://raw.githubusercontent.com/envkey/envkey-source/master/dist/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
+  echo "Downloading tarball from ${url}"
+  curl -s -o envkey-source.tar.gz "${url}"
   tar zxf envkey-source.tar.gz
 
-  sudo mv envkey-source/envkey-source /usr/local/bin/
+  sudo mv envkey-source /usr/local/bin/
   echo "envkey-source is installed in /usr/local/bin"
 
   rm envkey-source.tar.gz
-  rm -rf envkey-source
+  rm -f envkey-source
 }
-
 
 welcome_envkey
 download_envkey
 
-echo "Installation complete."
+echo "Installation complete. Usage:"
+echo ""
 /usr/local/bin/envkey-source -h
