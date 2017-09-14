@@ -58,6 +58,6 @@ function download_envkey {
 welcome_envkey
 download_envkey
 
-echo "Installation complete. Usage:"
+echo "Installation complete. Info:"
 echo ""
 /usr/local/bin/envkey-source -h
