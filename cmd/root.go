@@ -26,6 +26,7 @@ import (
 
 	"github.com/envkey/envkey-fetch/fetch"
 	"github.com/envkey/envkey-source/shell"
+	"github.com/envkey/envkey-source/version"
 	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
 )
@@ -44,8 +45,7 @@ if you have a .env file in the current directory that includes ENVKEY=...`,
 	Short: "Sets shell environment variables with an ENVKEY",
 	Run: func(cmd *cobra.Command, args []string) {
 		if printVersion {
-
-			return
+			return version.Version
 		}
 
 		opts := fetch.FetchOptions{ShouldCache: !noCache, CacheDir: cacheDir}
