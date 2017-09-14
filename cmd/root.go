@@ -30,6 +30,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+b, err := ioutil.ReadFile("version.txt") // just pass the file name
+if err != nil {
+    fmt.Print(err)
+}
 var Version string
 
 var cacheDir string
