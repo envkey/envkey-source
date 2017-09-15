@@ -3,6 +3,7 @@ package shell
 import (
 	"encoding/json"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/envkey/envkey-fetch/fetch"
@@ -32,15 +33,22 @@ func Source(envkey string, force bool, options fetch.FetchOptions) string {
 
 	res := "export"
 
-	for k, v := range resMap {
+	var keys []string
+	for k := range resMap {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		v := resMap[k]
 		var val string
 		if !force && os.Getenv(k) != "" {
 			val = os.Getenv(k)
 		} else {
-			val = v
+			val = strings.Replace(v, "'", `'"'"'`, -1)
 		}
 
-		res = res + " " + k + "=" + val
+		res = res + " " + k + "='" + val + "'"
 	}
 
 	return res
