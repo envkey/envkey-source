@@ -13,9 +13,8 @@ case "$(uname -s)" in
    PLATFORM='freebsd'
    ;;
 
- CYGWIN*|MINGW32*|MSYS*)
-   echo "This install script is not compatible with windows. Download the latest .exe release and put it in your PATH: https://github.com/envkey/envkey-source/releases"
-   exit 1
+ CYGWIN*|MINGW*|MSYS*)
+   PLATFORM='windows'
    ;;
 
  *)
@@ -50,11 +49,16 @@ function download_envkey {
 
   if [ "$PLATFORM" == "darwin" ]; then
     mv envkey-source /usr/local/bin/
+    echo "envkey-source is installed in /usr/local/bin"
+  elif [ "$PLATFORM" == "windows" ]; then
+    # ensure $HOME/bin exists (it's in PATH but not present in default git-bash install)
+    mkdir $HOME/bin
+    mv envkey-source.exe $HOME/bin/
+    echo "envkey-source is installed in $HOME/bin"
   else
     sudo mv envkey-source /usr/local/bin/
+    echo "envkey-source is installed in /usr/local/bin"
   fi
-
-  echo "envkey-source is installed in /usr/local/bin"
 
   rm envkey-source.tar.gz
   rm -f envkey-source
@@ -65,4 +69,4 @@ download_envkey
 
 echo "Installation complete. Info:"
 echo ""
-/usr/local/bin/envkey-source -h
+envkey-source -h
