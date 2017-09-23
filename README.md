@@ -63,7 +63,7 @@ By default, envkey-source will not overwrite existing environment variables or a
 
 ### Working Offline
 
-envkey-source can cache your encrypted config so that you can still use it while offline. Just use the `--cache` flag, and your config will still be available (though possibly not up-to-date) the next time you lose your internet connection.
+envkey-source can cache your encrypted config so that you can still use it while offline. Just use the `--cache` flag. Your config will still be available (though possibly not up-to-date) the next time you lose your internet connection.
 
 ### Examples
 
