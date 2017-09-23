@@ -22,11 +22,13 @@ With Go installed, clone the project into your `GOPATH`. `cd` into the directory
 
 ## Usage
 
+First, generate an `ENVKEY` in the [EnvKey App](https://github.com/envkey/envkey-app). Then:
+
 ```bash
 eval $(envkey-source ENVKEY [flags])
 ```
 
-Or with a `.env` file in the current directory that includes `ENVKEY=...` (or an `ENVKEY` environment variable already set):
+Or with a `.env` file in the current directory that includes `ENVKEY=...` (in development), or with an `ENVKEY` environment variable already set (on servers):
 
 ```bash
 eval $(envkey-source [flags])
