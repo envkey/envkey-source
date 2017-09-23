@@ -34,7 +34,7 @@ Or with a `.env` file in the current directory that includes `ENVKEY=...` (in de
 eval $(envkey-source [flags])
 ```
 
-Now you can access your app's environment variables in the shell, or in any process (in any language) launched from this shell.
+Now you can access your app's environment variables in this shell, or in any process (in any language) launched from this shell.
 
 ### Flags
 
