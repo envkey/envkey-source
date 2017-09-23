@@ -57,6 +57,14 @@ error: ENVKEY invalid
 
 Whenever you use `eval`, you need to worry about shell injection. We did the worrying for you--envkey-source wraps all EnvKey variables in single quotes and safely escapes any single quotes the variables might contain. This removes any potential for shell injection.
 
+### Overriding Vars
+
+By default, envkey-source will not overwrite existing environment variables or additional variables set in a `.env` file. This can be convenient for customizing environments that otherwise share the same configuration. But if you do want EnvKey vars to take precedence, use the `--force` / `-f` flag. You can read more about this topic in the [docs](https://docs.envkey.com/overriding-envkey-variables.html).
+
+### Working Offline
+
+envkey-source can cache your encrypted config so that you can still use it while offline. Just use the `--cache` flag, and your config will still be available (though possibly not up-to-date) the next time you lose your internet connection.
+
 ### Examples
 
 Assume you have `GITHUB_TOKEN` set to `cf4b78a2b8356059f340a7df735d0f63` for the `development` environment in EnvKey. You generate a local development `ENVKEY`.
@@ -114,14 +122,6 @@ $ eval $(envkey-source) && server-restart
 Now your server will keep its configuration securely and automatically in sync.
 
 If you're using envkey-source on a **CI server**, the process is much the same. Set `ENVKEY` environment variable in your CI interface, then run `eval $(envkey-source)` before running tests.
-
-### Overriding Vars
-
-By default, envkey-source will not overwrite existing environment variables or additional variables set in a `.env` file. This can be convenient for customizing environments that otherwise share the same configuration. But if you do want EnvKey vars to take precedence, use the `--force` / `-f` flag. You can read more about this topic in the [docs](https://docs.envkey.com/overriding-envkey-variables.html).
-
-### Working Offline
-
-envkey-source can cache your encrypted config so that you can still use it while offline. Just use the `--cache` flag, and your config will still be available (though possibly not up-to-date) the next time you lose your internet connection.
 
 ## Other EnvKey Libraries
 
