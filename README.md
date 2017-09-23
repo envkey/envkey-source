@@ -101,7 +101,7 @@ $ python
 'cf4b78a2b8356059f340a7df735d0f63'
 ```
 
-You could do exactly the same on a **server**, except instead of putting your `ENVKEY` in a `.env` file, you like want to set it as an environment variable (in whatever way you set environment variables for your host and server management tooling).
+You could do exactly the same on a **server**, except instead of putting your `ENVKEY` in a `.env` file, you'll set it as an environment variable (in whatever way you set environment variables for your host/server management platform).
 
 So you set an environment variable:
 
