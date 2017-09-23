@@ -69,7 +69,7 @@ envkey-source can cache your encrypted config so that you can still use it while
 
 ### Examples
 
-Assume you have `GITHUB_TOKEN` set to `cf4b78a2b8356059f340a7df735d0f63` for the `development` environment in EnvKey. You generate a local development `ENVKEY`.
+Assume you have `GITHUB_TOKEN` set to `cf4b78a2b8356059f340a7df735d0f63` for the `development` environment in the EnvKey App. You generate a local development `ENVKEY`.
 
 In your project's `.env` file (ignored from source control):
 
