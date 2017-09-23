@@ -106,10 +106,10 @@ You could do exactly the same on a **server**, except instead of putting your `E
 So you set an environment variable on your server:
 
 ```bash
-ENVKEY=GsL8zC74DWchdpvssa9z-nk7humd7hJmAqNoA
+ENVKEY=HSyahYDL2jBpyMnkV6gF-2rBFUNAHcQSJTiLA
 ```
 
-Then you run envkey-source as part of your server start and restart commands, whatever those may be:
+Then you run envkey-source as part of your server start and restart commands, whatever those may be.
 
 ```bash
 $ eval $(envkey-source) && server-start
@@ -122,6 +122,10 @@ $ eval $(envkey-source) && server-restart
 Now your server will keep its configuration securely and automatically in sync.
 
 If you're using envkey-source on a **CI server**, the process is much the same. Set `ENVKEY` environment variable in your CI interface, then run `eval $(envkey-source)` before running tests.
+
+### envkey-source within scripts
+
+Note that if you run envkey-source inside a script, your environment variables will only be visible to commands run within that script unless you run the script with `source`, in which case they will be set in the current shell.
 
 ## Other EnvKey Libraries
 
