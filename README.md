@@ -59,7 +59,7 @@ Whenever you use `eval`, you need to worry about shell injection. We did the wor
 
 ### Overriding Vars
 
-By default, envkey-source will not overwrite existing environment variables or additional variables set in a `.env` file. This can be convenient for customizing environments that otherwise share the same configuration. But if you do want EnvKey vars to take precedence, use the `--force` / `-f` flag. You can read more about this topic in the [docs](https://docs.envkey.com/overriding-envkey-variables.html).
+By default, envkey-source will not overwrite existing environment variables or additional variables set in a `.env` file. This can be convenient for customizing environments that otherwise share the same configuration. But if you do want EnvKey vars to take precedence, use the `--force` / `-f` flag. You can read more about this topic in the EnvKey [docs](https://docs.envkey.com/overriding-envkey-variables.html).
 
 ### Working Offline
 
