@@ -28,7 +28,7 @@ First, generate an `ENVKEY` in the [EnvKey App](https://github.com/envkey/envkey
 eval $(envkey-source ENVKEY [flags])
 ```
 
-Or with a `.env` file in the current directory that includes `ENVKEY=...` (in development), or with an `ENVKEY` environment variable already set (on servers):
+Or with a `.env` file in the current directory that includes `ENVKEY=...` (in development) / an `ENVKEY` environment variable set (on servers):
 
 ```bash
 eval $(envkey-source [flags])
@@ -128,16 +128,6 @@ If you're using envkey-source on a **CI server**, the process is much the same. 
 ### envkey-source within scripts
 
 Note that if you run envkey-source inside a script, your environment variables will only be visible to commands run within that script unless you run the script with `source`, in which case they will be set in the current shell.
-
-## Other EnvKey Libraries
-
-[envkey-fetch](https://github.com/envkey/envkey-fetch) - lower level command line tool that simply accepts an `ENVKEY` and spits on decrypted config as json. Handles core fetching, decryption, verification, web of trust, redundancy, and caching logic. Does most of the work behind the scenes for this library.
-
-[envkey-ruby](https://github.com/envkey/envkey-fetch) - EnvKey Client Library for Ruby and Rails.
-
-[envkey-js](https://github.com/envkey/envkey-js) - EnvKey Client Library for Node.js.
-
-[envkeygo](https://github.com/envkey/envkeygo) - EnvKey Client Library for Go.
 
 ## Further Reading
 
