@@ -32,7 +32,7 @@ import (
 )
 
 var cacheDir string
-var noCache bool
+var shouldCache bool
 var force bool
 var printVersion bool
 
@@ -49,7 +49,7 @@ if you have a .env file in the current directory that includes ENVKEY=...`,
 			return
 		}
 
-		opts := fetch.FetchOptions{ShouldCache: !noCache, CacheDir: cacheDir}
+		opts := fetch.FetchOptions{shouldCache, cacheDir}
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts))
 		} else {
@@ -77,6 +77,6 @@ func Execute() {
 func init() {
 	RootCmd.Flags().BoolVarP(&force, "force", "f", false, "overwrite existing environment variables and/or other entries in .env file")
 	RootCmd.Flags().BoolVarP(&printVersion, "version", "v", false, "prints the version")
-	RootCmd.Flags().BoolVar(&noCache, "no-cache", false, "do NOT cache encrypted config as a local backup")
+	RootCmd.Flags().BoolVar(&shouldCache, "cache", false, "cache encrypted config as a local backup (default is false)")
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 }
