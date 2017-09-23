@@ -55,7 +55,7 @@ error: ENVKEY invalid
 
 ### Security - Preventing Shell Injection
 
-Whenever you use `eval`, you need to worry about shell injection. We did the worrying for you--envkey-source wraps all EnvKey variables in single quotes, while safely escaping any single quotes the variables might contain. This removes any potential for shell injection.
+Whenever you use `eval`, you need to worry about shell injection. We did the worrying for you--envkey-source wraps all EnvKey variables in single quotes and safely escapes any single quotes the variables might contain. This removes any potential for shell injection.
 
 ### Examples
 
