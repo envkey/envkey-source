@@ -121,8 +121,6 @@ $ eval $(envkey-source) && server-start
 $ eval $(envkey-source) && server-restart
 ```
 
-Now your server will keep its configuration securely and automatically in sync.
-
 If you're using envkey-source on a **CI server**, the process is much the same. Set the `ENVKEY` environment variable in your CI interface, then run `eval $(envkey-source)` before running tests.
 
 ### envkey-source within scripts
