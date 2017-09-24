@@ -16,10 +16,6 @@ curl -s https://raw.githubusercontent.com/envkey/envkey-source/master/install.sh
 
 Find the [release](https://github.com/envkey/envkey-source/releases) for your platform and architecture, and stick the appropriate binary somewhere in your `PATH` (or wherever you like really).
 
-**Install from source:**
-
-With Go installed, clone the project into your `GOPATH`. `cd` into the directory and run `go get` and `go build`.
-
 ## Usage
 
 First, generate an `ENVKEY` in the [EnvKey App](https://github.com/envkey/envkey-app). Then:
