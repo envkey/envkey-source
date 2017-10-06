@@ -29,6 +29,12 @@ else
   ARCH="386"
 fi
 
+if [[ "$(cat /proc/1/cgroup | grep docker | wc -l)" > 0 ]]; then
+  IS_DOCKER=true
+else
+  IS_DOCKER=false
+fi
+
 curl -s -o .ek_tmp_version https://raw.githubusercontent.com/envkey/envkey-source/master/version.txt
 VERSION=$(cat .ek_tmp_version)
 rm .ek_tmp_version
@@ -47,7 +53,7 @@ function download_envkey {
   curl -s -o envkey-source.tar.gz "${url}"
   tar zxf envkey-source.tar.gz
 
-  if [ "$PLATFORM" == "darwin" ]; then
+  if [ "$PLATFORM" == "darwin" ] || $IS_DOCKER ; then
     mv envkey-source /usr/local/bin/
     echo "envkey-source is installed in /usr/local/bin"
   elif [ "$PLATFORM" == "windows" ]; then
