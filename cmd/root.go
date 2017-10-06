@@ -33,6 +33,7 @@ import (
 
 var cacheDir string
 var shouldCache bool
+var shouldNotCache bool
 var force bool
 var printVersion bool
 
@@ -49,7 +50,16 @@ if you have a .env file in the current directory that includes ENVKEY=...`,
 			return
 		}
 
-		opts := fetch.FetchOptions{shouldCache, cacheDir}
+		// Determine whether local caching for offline work should be enabled
+		// yes if --cache flag or .env file (unless --no-cache flag)
+		cacheEnabled := !shouldNotCache && shouldCache
+		if !cacheEnabled && !shouldNotCache {
+			if _, err := os.Stat(".env"); !os.IsNotExist(err) {
+				cacheEnabled = true
+			}
+		}
+
+		opts := fetch.FetchOptions{cacheEnabled, cacheDir}
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts))
 		} else {
@@ -77,6 +87,7 @@ func Execute() {
 func init() {
 	RootCmd.Flags().BoolVarP(&force, "force", "f", false, "overwrite existing environment variables and/or other entries in .env file")
 	RootCmd.Flags().BoolVarP(&printVersion, "version", "v", false, "prints the version")
-	RootCmd.Flags().BoolVar(&shouldCache, "cache", false, "cache encrypted config as a local backup (default is false)")
+	RootCmd.Flags().BoolVar(&shouldCache, "cache", false, "cache encrypted config as a local backup (default is true when .env file exists, false otherwise)")
+	RootCmd.Flags().BoolVar(&shouldNotCache, "no-cache", false, "do NOT cache encrypted config as a local backup even when .env file exists")
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 }
