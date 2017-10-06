@@ -151,13 +151,12 @@ services:
     env_file: .env
 ```
 
-On a server, you just need to pass the ENVKEY environment variable through to your docker container. Where to set this depends on your host, but it shouldn't be difficult.
+On a server, you just need to set an ENVKEY environment variable that will be passed through to your docker container. Where to do this depends on your host.
 
 And now you can access EnvKey variables the same way you'd read normal environment variables.
 
 ```python
 # example.py
-
 import os
 
 print(os.environ["GITHUB_TOKEN"])
