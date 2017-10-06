@@ -35,7 +35,8 @@ Now you can access your app's environment variables in this shell, or in any pro
 ### Flags
 
 ```text
-    --cache              cache encrypted config as a local backup (default is false)
+    --cache              cache encrypted config as a local backup (default is true when .env file exists, false otherwise)
+    --no-cache           do NOT cache encrypted config as a local backup even when .env file exists
     --cache-dir string   cache directory (default is $HOME/.envkey/cache)
 -f, --force              overwrite existing environment variables and/or other entries in .env file
 -h, --help               help for envkey-source
@@ -61,7 +62,9 @@ By default, envkey-source will not overwrite existing environment variables or a
 
 ### Working Offline
 
-envkey-source can cache your encrypted config so that you can still use it while offline. Just use the `--cache` flag. Your config will still be available (though possibly not up-to-date) the next time you lose your internet connection. If you do have a connection available, envkey-source will always load the latest config.
+envkey-source caches your encrypted config in development so that you can still use it while offline. Your config will still be available (though possibly not up-to-date) the next time you lose your internet connection. If you do have a connection available, envkey-source will always load the latest config.
+
+By default, caching is enabled when a `.env` file is present in the directory, and disabled otherwise. You can also enable it with the `--cache` flag or disable it with the `--no-cache` flag.
 
 ### Examples
 
@@ -74,10 +77,10 @@ In your project's `.env` file (ignored from source control):
 ENVKEY=GsL8zC74DWchdpvssa9z-nk7humd7hJmAqNoA
 ```
 
-Run envkey-source (with caching enabled):
+Run envkey-source:
 
 ```bash
-$ eval $(envkey-source --cache)
+$ eval $(envkey-source)
 ```
 
 Now `GITHUB_TOKEN` is available in the shell:
@@ -123,6 +126,19 @@ If you're using envkey-source on a **CI server**, the process is much the same. 
 
 Note that if you run envkey-source inside a script, your environment variables will only be visible to commands run within that script unless you run the script with `source`, in which case they will be set in the current shell.
 
+<<<<<<< HEAD
+=======
+## Other EnvKey Libraries
+
+[envkey-fetch](https://github.com/envkey/envkey-fetch) - lower level command line tool that simply accepts an `ENVKEY` and spits on decrypted config as json. Handles core fetching, decryption, verification, web of trust, redundancy, and caching logic. Does most of the work behind the scenes for this library.
+
+[envkey-ruby](https://github.com/envkey/envkey-fetch) - EnvKey Client Library for Ruby and Rails.
+
+[envkey-node](https://github.com/envkey/envkey-node) - EnvKey Client Library for Node.js.
+
+[envkeygo](https://github.com/envkey/envkeygo) - EnvKey Client Library for Go.
+
+>>>>>>> Cache by default when .env file present, --no-cache flag, README updates
 ## Further Reading
 
 For more on EnvKey in general:
