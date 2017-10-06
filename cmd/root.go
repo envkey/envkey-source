@@ -39,10 +39,14 @@ var printVersion bool
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use: `eval $(envkey-source ENVKEY [flags])
-or just:
-  eval $(envkey-source [flags])
-if you have a .env file in the current directory that includes ENVKEY=...`,
+	Use: `eval $(envkey-source [flags])
+
+You'll need .env file in the current directory that includes ENVKEY=... (in development) or an ENVKEY environment variable set (on a server).
+
+You can also pass an ENVKEY directly (not recommended for real workflows):
+
+  eval $(envkey-source ENVKEY [flags])`,
+
 	Short: "Sets shell environment variables with an ENVKEY",
 	Run: func(cmd *cobra.Command, args []string) {
 		if printVersion {
@@ -65,12 +69,7 @@ if you have a .env file in the current directory that includes ENVKEY=...`,
 		} else {
 			godotenv.Load()
 			envkey := os.Getenv("ENVKEY")
-
-			if envkey != "" {
-				fmt.Println(shell.Source(envkey, force, opts))
-			} else {
-				cmd.Help()
-			}
+			fmt.Println(shell.Source(envkey, force, opts))
 		}
 	},
 }
