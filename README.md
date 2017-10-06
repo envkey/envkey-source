@@ -142,7 +142,7 @@ ADD . /code/
 CMD eval $(envkey-source) && python3 example.py
 ```
 
-To supply the ENVKEY in development with docker-compose, you can add it to a `.env` file, then use the `env-file` key in `docker-compose.yml`.
+To supply the `ENVKEY` in development with docker-compose, you can add it to a `.env` file, then use the `env-file` key in `docker-compose.yml`.
 
 ```yml
 services:
@@ -151,7 +151,7 @@ services:
     env_file: .env
 ```
 
-On a server, you just need to set an ENVKEY environment variable that will be passed through to your docker container. Where to do this depends on your host.
+On a server, you just need to set an `ENVKEY` environment variable that will be passed through to your docker container. Where to do this depends on your host.
 
 And now you can access EnvKey variables the same way you'd read normal environment variables.
 
