@@ -1,6 +1,6 @@
 # envkey-source
 
-Integrate [EnvKey](https://www.envkey.com) with any language, either in development or on a server, by making your configuration available OS-wide as environment variables.
+Integrate [EnvKey](https://www.envkey.com) with any language, either in development or on a server, by making your configuration available through the shell as environment variables.
 
 ## Installation
 
@@ -18,19 +18,21 @@ Find the [release](https://github.com/envkey/envkey-source/releases) for your pl
 
 ## Usage
 
-First, generate an `ENVKEY` in the [EnvKey App](https://github.com/envkey/envkey-app). Then:
+First, generate an `ENVKEY` in the [EnvKey App](https://github.com/envkey/envkey-app).
+
+Then with a `.env` file in the current directory that includes `ENVKEY=...` (in development) / an `ENVKEY` environment variable set (on a server):
 
 ```bash
-eval $(envkey-source ENVKEY [flags])
-```
-
-Or with a `.env` file in the current directory that includes `ENVKEY=...` (in development) / an `ENVKEY` environment variable set (on servers):
-
-```bash
-eval $(envkey-source [flags])
+eval $(envkey-source)
 ```
 
 Now you can access your app's environment variables in this shell, or in any process (in any language) launched from this shell.
+
+You can also pass an `ENVKEY` directly. This isn't recommended for a real workflow, but can be useful for trying things out.
+
+```bash
+eval $(envkey-source ENVKEY)
+```
 
 ### Flags
 
@@ -45,10 +47,10 @@ Now you can access your app's environment variables in this shell, or in any pro
 
 ### Errors
 
-If you get an error, envkey-source will echo the error string to stdout instead of setting environment variables. For example:
+If you get an error, envkey-source will echo the error string to stdout and return false instead of setting environment variables. For example:
 
 ```bash
-$ eval $(envkey-source notvalidenvkey)
+$ eval $(envkey-source notvalidenvkey) && ./env-dependent-script.sh
 error: ENVKEY invalid
 ```
 
@@ -102,7 +104,7 @@ $ python
 'cf4b78a2b8356059f340a7df735d0f63'
 ```
 
-You could do exactly the same on a **server**, except instead of putting your `ENVKEY` in a `.env` file, you'll set it as an environment variable (in whatever way you set environment variables for your host/server management platform).
+You can do exactly the same on a **server**, except instead of putting your `ENVKEY` in a `.env` file, you'll set it as an environment variable (in whatever way you set environment variables for your host/server management platform).
 
 So you set an environment variable on your server:
 
@@ -122,12 +124,49 @@ $ eval $(envkey-source) && server-restart
 
 If you're using envkey-source on a **CI server**, the process is much the same. Set the `ENVKEY` environment variable in your CI interface, then run `eval $(envkey-source)` before running tests.
 
+### Docker
+
+Here's a simple example using Python:
+
+```docker
+FROM python:3
+
+# install envkey-source
+RUN curl -s https://raw.githubusercontent.com/envkey/envkey-source/master/install.sh | bash
+
+RUN mkdir /code
+WORKDIR /code
+ADD . /code/
+
+# set EnvKey environment variables before running the process
+CMD eval $(envkey-source) && python3 example.py
+```
+
+To supply the ENVKEY in development with docker-compose, you can add it to a `.env` file, then use the `env-file` key in `docker-compose.yml`.
+
+```yml
+services:
+  example:
+    build: .
+    env_file: .env
+```
+
+On a server, you just need to pass the ENVKEY environment variable through to your docker container. Where to set this depends on your host, but it shouldn't be difficult.
+
+And now you can access EnvKey variables the same way you'd read normal environment variables.
+
+```python
+# example.py
+
+import os
+
+print(os.environ["GITHUB_TOKEN"])
+```
+
 ### envkey-source within scripts
 
 Note that if you run envkey-source inside a script, your environment variables will only be visible to commands run within that script unless you run the script with `source`, in which case they will be set in the current shell.
 
-<<<<<<< HEAD
-=======
 ## Other EnvKey Libraries
 
 [envkey-fetch](https://github.com/envkey/envkey-fetch) - lower level command line tool that simply accepts an `ENVKEY` and spits on decrypted config as json. Handles core fetching, decryption, verification, web of trust, redundancy, and caching logic. Does most of the work behind the scenes for this library.
@@ -138,7 +177,6 @@ Note that if you run envkey-source inside a script, your environment variables w
 
 [envkeygo](https://github.com/envkey/envkeygo) - EnvKey Client Library for Go.
 
->>>>>>> Cache by default when .env file present, --no-cache flag, README updates
 ## Further Reading
 
 For more on EnvKey in general:

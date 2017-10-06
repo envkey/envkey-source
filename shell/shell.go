@@ -10,21 +10,25 @@ import (
 )
 
 func Source(envkey string, force bool, options fetch.FetchOptions) string {
+	if envkey == "" {
+		return "echo 'error: ENVKEY missing.'; false"
+	}
+
 	fetchRes := fetch.Fetch(envkey, options)
 
 	if strings.HasPrefix(fetchRes, "error: ") {
-		return "echo '" + fetchRes + "'"
+		return "echo '" + fetchRes + "'; false"
 	}
 
 	if fetchRes == "" {
-		return "echo 'error: ENVKEY invalid.'"
+		return "echo 'error: ENVKEY invalid.'; false"
 	}
 
 	var resMap map[string]string
 	err := json.Unmarshal([]byte(fetchRes), &resMap)
 
 	if err != nil {
-		return "echo 'error: There was a problem parsing EnvKey's response.'"
+		return "echo 'error: There was a problem parsing EnvKey's response.'; false"
 	}
 
 	if len(resMap) == 0 {
