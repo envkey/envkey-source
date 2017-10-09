@@ -142,7 +142,7 @@ ADD . /code/
 CMD eval $(envkey-source) && python3 example.py
 ```
 
-To supply the `ENVKEY` in development with docker-compose, you can add it to a `.env` file, then use the `env-file` key in `docker-compose.yml`.
+To supply the `ENVKEY` in development with docker-compose, you can add it to a `.env` file, then use the `env_file` key in `docker-compose.yml`.
 
 ```yml
 services:
