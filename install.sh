@@ -25,6 +25,14 @@ esac
 
 if [[ "$(uname -m)" == 'x86_64' ]]; then
   ARCH="amd64"
+elif [[ "$(uname -m)" == armv5* ]]; then
+  ARCH="armv5"
+elif [[ "$(uname -m)" == armv6* ]]; then
+  ARCH="armv6"
+elif [[ "$(uname -m)" == armv7* ]]; then
+  ARCH="armv7"
+elif [[ "$(uname -m)" == 'arm64' ]]; then
+  ARCH="arm64"
 else
   ARCH="386"
 fi
