@@ -14,9 +14,9 @@ const INVALID_ENVKEY = "Emzt4BE7C23QtsC7gb1z-3NvfNiG1Boy6XH2oinvalid-env-staging
 func TestSource(t *testing.T) {
 	// Test valid
 	validRes := shell.Source(VALID_ENVKEY, true, fetch.FetchOptions{false, ""})
-	assert.Equal(t, "export TEST='it' TEST_2='works!' TEST_INJECTION=''\"'\"'$(uname)' TEST_SINGLE_QUOTES='this'\"'\"' is ok' TEST_SPACES='it does work!'", validRes)
+	assert.Equal(t, "export 'TEST'='it' 'TEST_2'='works!' 'TEST_INJECTION'=''\"'\"'$(uname)' 'TEST_SINGLE_QUOTES'='this'\"'\"' is ok' 'TEST_SPACES'='it does work!'", validRes)
 
 	// Test invalid
 	invalidRes := shell.Source(INVALID_ENVKEY, true, fetch.FetchOptions{false, ""})
-	assert.Equal(t, "echo 'error: ENVKEY invalid'", invalidRes)
+	assert.Equal(t, "echo 'error: ENVKEY invalid'; false", invalidRes)
 }
