@@ -45,14 +45,17 @@ func Source(envkey string, force bool, options fetch.FetchOptions) string {
 
 	for _, k := range keys {
 		v := resMap[k]
-		var val string
+		var key, val string
+
+		key = strings.Replace(k, "'", `'"'"'`, -1)
+
 		if !force && os.Getenv(k) != "" {
 			val = os.Getenv(k)
 		} else {
 			val = strings.Replace(v, "'", `'"'"'`, -1)
 		}
 
-		res = res + " " + k + "='" + val + "'"
+		res = res + " '" + key + "'='" + val + "'"
 	}
 
 	return res
