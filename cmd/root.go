@@ -63,7 +63,7 @@ You can also pass an ENVKEY directly (not recommended for real workflows):
 			}
 		}
 
-		opts := fetch.FetchOptions{cacheEnabled, cacheDir}
+		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version}
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts))
 		} else {
