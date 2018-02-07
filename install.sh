@@ -64,7 +64,7 @@ function download_envkey {
   tar zxf envkey-source.tar.gz envkey-source 2> /dev/null
 
   if [ "$PLATFORM" == "darwin" ] || $IS_DOCKER ; then
-    mkdir /usr/local/bin 2> /dev/null
+    [ -d /usr/local/bin ] || sudo mkdir /usr/local/bin
     mv envkey-source /usr/local/bin/
     echo "envkey-source is installed in /usr/local/bin"
   elif [ "$PLATFORM" == "windows" ]; then
