@@ -37,7 +37,7 @@ else
   ARCH="386"
 fi
 
-if [[ "$(cat /proc/1/cgroup | grep docker | wc -l)" > 0 ]]; then
+if [[ "$(cat /proc/1/cgroup 2> /dev/null | grep docker | wc -l)" > 0 ]]; then
   IS_DOCKER=true
 else
   IS_DOCKER=false
@@ -59,10 +59,12 @@ function download_envkey {
   url="https://raw.githubusercontent.com/envkey/envkey-source/master/dist/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
   echo "Downloading tarball from ${url}"
   curl -s -o envkey-source.tar.gz "${url}"
-  tar zxf envkey-source.tar.gz envkey-source.exe
-  tar zxf envkey-source.tar.gz envkey-source
+
+  tar zxf envkey-source.tar.gz envkey-source.exe 2> /dev/null
+  tar zxf envkey-source.tar.gz envkey-source 2> /dev/null
 
   if [ "$PLATFORM" == "darwin" ] || $IS_DOCKER ; then
+    mkdir /usr/local/bin 2> /dev/null
     mv envkey-source /usr/local/bin/
     echo "envkey-source is installed in /usr/local/bin"
   elif [ "$PLATFORM" == "windows" ]; then
