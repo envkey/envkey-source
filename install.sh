@@ -54,6 +54,11 @@ function welcome_envkey {
   echo ""
 }
 
+function cleanup {
+  rm envkey-source.tar.gz
+  rm -f envkey-source
+}
+
 function download_envkey {
   echo "Downloading envkey-source binary for ${PLATFORM}-${ARCH}"
   url="https://raw.githubusercontent.com/envkey/envkey-source/master/dist/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
@@ -64,25 +69,28 @@ function download_envkey {
   tar zxf envkey-source.tar.gz envkey-source 2> /dev/null
 
   if [ "$PLATFORM" == "darwin" ] || $IS_DOCKER ; then
-    [ -d /usr/local/bin ] || sudo mkdir /usr/local/bin
-    mv envkey-source /usr/local/bin/
-    echo "envkey-source is installed in /usr/local/bin"
+    if [[ -d /usr/local/bin ]]; then
+      mv envkey-source /usr/local/bin/
+      echo "envkey-source is installed in /usr/local/bin"
+    else
+      echo >&2 'Error: /usr/local/bin does not exist. Create this directory with appropriate permissions, then re-install.'
+      cleanup
+      exit 1
+    fi
   elif [ "$PLATFORM" == "windows" ]; then
     # ensure $HOME/bin exists (it's in PATH but not present in default git-bash install)
-    mkdir $HOME/bin
+    mkdir $HOME/bin 2> /dev/null
     mv envkey-source.exe $HOME/bin/
     echo "envkey-source is installed in $HOME/bin"
   else
     sudo mv envkey-source /usr/local/bin/
     echo "envkey-source is installed in /usr/local/bin"
   fi
-
-  rm envkey-source.tar.gz
-  rm -f envkey-source
 }
 
 welcome_envkey
 download_envkey
+cleanup
 
 echo "Installation complete. Info:"
 echo ""
