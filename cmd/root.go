@@ -32,6 +32,7 @@ import (
 )
 
 var cacheDir string
+var envFile string
 var shouldCache bool
 var shouldNotCache bool
 var force bool
@@ -67,7 +68,7 @@ You can also pass an ENVKEY directly (not recommended for real workflows):
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts))
 		} else {
-			godotenv.Load()
+			godotenv.Load(envFile)
 			envkey := os.Getenv("ENVKEY")
 			fmt.Println(shell.Source(envkey, force, opts))
 		}
@@ -89,4 +90,5 @@ func init() {
 	RootCmd.Flags().BoolVar(&shouldCache, "cache", false, "cache encrypted config as a local backup (default is true when .env file exists, false otherwise)")
 	RootCmd.Flags().BoolVar(&shouldNotCache, "no-cache", false, "do NOT cache encrypted config as a local backup even when .env file exists")
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
+	RootCmd.Flags().StringVar(&envFile, "env-file", ".env", "ENVKEY-containing env file name")
 }
