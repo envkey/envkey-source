@@ -41,6 +41,7 @@ eval $(envkey-source ENVKEY)
     --no-cache           do NOT cache encrypted config as a local backup even when .env file exists
     --cache-dir string   cache directory (default is $HOME/.envkey/cache)
     --env-file string    ENVKEY-containing env file name (default ".env")
+    --pam-compatible     change output format to be compatible with /etc/environment on Linux
 -f, --force              overwrite existing environment variables and/or other entries in .env file
 -h, --help               help for envkey-source
 -v, --version            prints the version

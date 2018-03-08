@@ -37,6 +37,7 @@ var shouldCache bool
 var shouldNotCache bool
 var force bool
 var printVersion bool
+var pamCompatible bool
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -66,11 +67,11 @@ You can also pass an ENVKEY directly (not recommended for real workflows):
 
 		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version}
 		if len(args) > 0 {
-			fmt.Println(shell.Source(args[0], force, opts))
+			fmt.Println(shell.Source(args[0], force, opts, pamCompatible))
 		} else {
 			godotenv.Load(envFile)
 			envkey := os.Getenv("ENVKEY")
-			fmt.Println(shell.Source(envkey, force, opts))
+			fmt.Println(shell.Source(envkey, force, opts, pamCompatible))
 		}
 	},
 }
@@ -91,4 +92,18 @@ func init() {
 	RootCmd.Flags().BoolVar(&shouldNotCache, "no-cache", false, "do NOT cache encrypted config as a local backup even when .env file exists")
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 	RootCmd.Flags().StringVar(&envFile, "env-file", ".env", "ENVKEY-containing env file name")
+
+	RootCmd.Flags().BoolVar(&pamCompatible, "pam-compatible", false, "change output format to be compatible with /etc/environment on Linux")
+
+	// differences between bash syntax and the /etc/environment format, as parsed by PAM
+	// (https://github.com/linux-pam/linux-pam/blob/master/modules/pam_env/pam_env.c#L194)
+	// - one variable per line
+	// - "export " prefix is allowed, and has no effect
+	// - cannot quote the variable name
+	// - can quote the variable value
+	//   (but this has no effect - there are no special sequences that need to be escaped)
+	// - embedded quotes in values are treated as any other character (so should not be escaped)
+	// - embedded newlines in values will disappear
+	//   (a single backslash "escapes" the newline for parsing purposes, but in the actual
+	//   environment the newline will not appear)
 }
