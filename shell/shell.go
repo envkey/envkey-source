@@ -9,7 +9,7 @@ import (
 	"github.com/envkey/envkey-fetch/fetch"
 )
 
-func Source(envkey string, force bool, options fetch.FetchOptions) string {
+func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible bool) string {
 	if envkey == "" {
 		return "echo 'error: ENVKEY missing.'; false"
 	}
@@ -35,7 +35,12 @@ func Source(envkey string, force bool, options fetch.FetchOptions) string {
 		return "echo 'No vars set'"
 	}
 
-	res := "export"
+	var res string
+	if pamCompatible {
+		res = ""
+	} else {
+		res = "export"
+	}
 
 	var keys []string
 	for k := range resMap {
@@ -43,19 +48,40 @@ func Source(envkey string, force bool, options fetch.FetchOptions) string {
 	}
 	sort.Strings(keys)
 
-	for _, k := range keys {
+	for i, k := range keys {
 		v := resMap[k]
 		var key, val string
 
-		key = strings.Replace(k, "'", `'"'"'`, -1)
+		if pamCompatible {
+			// Remove newlines. Leave quotes alone.
+			key = strings.Replace(k, "\n", "", -1)
+		} else {
+			// Quote quotes.
+			key = strings.Replace(k, "'", `'"'"'`, -1)
+		}
 
 		if !force && os.Getenv(k) != "" {
 			val = os.Getenv(k)
 		} else {
-			val = strings.Replace(v, "'", `'"'"'`, -1)
+			if pamCompatible {
+				// Remove newlines. Leave quotes alone.
+				val = strings.Replace(v, "\n", "", -1)
+			} else {
+				// Quote quotes.
+				val = strings.Replace(v, "'", `'"'"'`, -1)
+			}
 		}
 
-		res = res + " '" + key + "'='" + val + "'"
+		if pamCompatible {
+			if i > 0 {
+				res = res + "\n"
+			}
+			// Do not quote keys, but quote values.
+			res = res + "export " + key + "='" + val + "'"
+		} else {
+			// Quote both keys and values.
+			res = res + " '" + key + "'='" + val + "'"
+		}
 	}
 
 	return res
