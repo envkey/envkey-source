@@ -169,6 +169,17 @@ print(os.environ["GITHUB_TOKEN"])
 
 Note that if you run envkey-source inside a script, your environment variables will only be visible to commands run within that script unless you run the script with `source`, in which case they will be set in the current shell.
 
+### direnv
+
+envkey-source works well with [direnv](https://direnv.net). Just add the following to your `.envrc` file:
+
+```bash
+export ENVKEY=HSyahYDL2jBpyMnkV6gF-2rBFUNAHcQSJTiLA
+eval $(envkey-source)
+```
+
+and rerun `direnv allow`.
+
 ## Other EnvKey Libraries
 
 [envkey-fetch](https://github.com/envkey/envkey-fetch) - lower level command line tool that simply accepts an `ENVKEY` and spits on decrypted config as json. Handles core fetching, decryption, verification, web of trust, redundancy, and caching logic. Does most of the work behind the scenes for this library.
