@@ -175,7 +175,10 @@ envkey-source works well with [direnv](https://direnv.net). Just add the followi
 
 ```bash
 export ENVKEY=HSyahYDL2jBpyMnkV6gF-2rBFUNAHcQSJTiLA
-eval $(envkey-source)
+
+if has envkey-source; then
+  eval $(envkey-source --cache)
+fi
 ```
 
 and rerun `direnv allow`.
