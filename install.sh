@@ -47,19 +47,19 @@ curl -s -o .ek_tmp_version https://raw.githubusercontent.com/envkey/envkey-sourc
 VERSION=$(cat .ek_tmp_version)
 rm .ek_tmp_version
 
-function welcome_envkey {
+welcome_envkey () {
   echo "envkey-source $VERSION Quick Install"
   echo "Copyright (c) 2017 Envkey Inc. - MIT License"
   echo "https://github.com/envkey/envkey-source"
   echo ""
 }
 
-function cleanup {
+cleanup () {
   rm envkey-source.tar.gz
   rm -f envkey-source
 }
 
-function download_envkey {
+download_envkey () {
   echo "Downloading envkey-source binary for ${PLATFORM}-${ARCH}"
   url="https://raw.githubusercontent.com/envkey/envkey-source/master/dist/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
   echo "Downloading tarball from ${url}"
