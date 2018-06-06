@@ -45,6 +45,7 @@ eval $(envkey-source ENVKEY)
 -f, --force              overwrite existing environment variables and/or other entries in .env file
 -h, --help               help for envkey-source
 -v, --version            prints the version
+    --verbose            print verbose output (default is false)
 ```
 
 ### Errors
