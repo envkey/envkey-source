@@ -38,6 +38,7 @@ var shouldNotCache bool
 var force bool
 var printVersion bool
 var pamCompatible bool
+var verboseOutput bool
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -65,7 +66,7 @@ You can also pass an ENVKEY directly (not recommended for real workflows):
 			}
 		}
 
-		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version}
+		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version, verboseOutput}
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts, pamCompatible))
 		} else {
@@ -92,6 +93,7 @@ func init() {
 	RootCmd.Flags().BoolVar(&shouldNotCache, "no-cache", false, "do NOT cache encrypted config as a local backup even when .env file exists")
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 	RootCmd.Flags().StringVar(&envFile, "env-file", ".env", "ENVKEY-containing env file name")
+	RootCmd.Flags().BoolVar(&verboseOutput, "verbose", false, "print verbose output (default is false)")
 
 	RootCmd.Flags().BoolVar(&pamCompatible, "pam-compatible", false, "change output format to be compatible with /etc/environment on Linux")
 
