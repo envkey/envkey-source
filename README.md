@@ -46,6 +46,7 @@ eval $(envkey-source ENVKEY)
 -h, --help               help for envkey-source
 -v, --version            prints the version
     --verbose            print verbose output (default is false)
+    --timeout float      timeout in seconds for http requests (default 2)
 ```
 
 ### Errors

@@ -39,6 +39,7 @@ var force bool
 var printVersion bool
 var pamCompatible bool
 var verboseOutput bool
+var timeoutSeconds float64
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -66,7 +67,7 @@ You can also pass an ENVKEY directly (not recommended for real workflows):
 			}
 		}
 
-		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version, verboseOutput}
+		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version, verboseOutput, timeoutSeconds}
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts, pamCompatible))
 		} else {
@@ -94,6 +95,7 @@ func init() {
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 	RootCmd.Flags().StringVar(&envFile, "env-file", ".env", "ENVKEY-containing env file name")
 	RootCmd.Flags().BoolVar(&verboseOutput, "verbose", false, "print verbose output (default is false)")
+	RootCmd.Flags().Float64Var(&timeoutSeconds, "timeout", 2.0, "timeout in seconds for http requests")
 
 	RootCmd.Flags().BoolVar(&pamCompatible, "pam-compatible", false, "change output format to be compatible with /etc/environment on Linux")
 
