@@ -34,6 +34,22 @@ You can also pass an `ENVKEY` directly. This isn't recommended for a real workfl
 eval $(envkey-source ENVKEY)
 ```
 
+### Multi-Line Values
+
+If your EnvKey config includes multi-line values, you need to load it with slightly different syntax to preserve formatting. Instead of:
+
+```bash
+eval $(envkey-source)
+echo $SOME_VAR
+```
+
+Use this (note the additional **double quotes**):
+
+```bash
+eval "$(envkey-source)"
+echo "$SOME_VAR"
+```
+
 ### Flags
 
 ```text
