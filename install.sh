@@ -37,7 +37,7 @@ else
   ARCH="386"
 fi
 
-if [[ "$(cat /proc/1/cgroup 2> /dev/null | grep docker | wc -l)" > 0 ]]; then
+if [ -f /.dockerenv ]; then
   IS_DOCKER=true
 else
   IS_DOCKER=false
