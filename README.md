@@ -203,7 +203,7 @@ and rerun `direnv allow`.
 
 ## Other EnvKey Libraries
 
-[envkey-fetch](https://github.com/envkey/envkey-fetch) - lower level command line tool that simply accepts an `ENVKEY` and spits on decrypted config as json. Handles core fetching, decryption, verification, web of trust, redundancy, and caching logic. Does most of the work behind the scenes for this library.
+[envkey-fetch](https://github.com/envkey/envkey-fetch) - lower level command line tool that simply accepts an `ENVKEY` and spits out decrypted config as json. Handles core fetching, decryption, verification, web of trust, redundancy, and caching logic. Does most of the work behind the scenes for this library.
 
 [envkey-ruby](https://github.com/envkey/envkey-fetch) - EnvKey Client Library for Ruby and Rails.
 
