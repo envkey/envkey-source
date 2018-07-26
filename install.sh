@@ -61,7 +61,7 @@ cleanup () {
 
 download_envkey () {
   echo "Downloading envkey-source binary for ${PLATFORM}-${ARCH}"
-  url="https://raw.githubusercontent.com/envkey/envkey-source/master/dist/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
+  url="https://github.com/envkey/envkey-source/releases/download/v${VERSION}/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
   echo "Downloading tarball from ${url}"
   curl -s -o envkey-source.tar.gz "${url}"
 
