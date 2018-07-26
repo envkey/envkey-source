@@ -63,7 +63,7 @@ download_envkey () {
   echo "Downloading envkey-source binary for ${PLATFORM}-${ARCH}"
   url="https://github.com/envkey/envkey-source/releases/download/v${VERSION}/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
   echo "Downloading tarball from ${url}"
-  curl -s -o envkey-source.tar.gz "${url}"
+  curl -s -L -o envkey-source.tar.gz "${url}"
 
   tar zxf envkey-source.tar.gz envkey-source.exe 2> /dev/null
   tar zxf envkey-source.tar.gz envkey-source 2> /dev/null
