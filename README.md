@@ -16,6 +16,16 @@ curl -s https://raw.githubusercontent.com/envkey/envkey-source/master/install.sh
 
 Find the [release](https://github.com/envkey/envkey-source/releases) for your platform and architecture, and stick the appropriate binary somewhere in your `PATH` (or wherever you like really).
 
+**Cross-compile from source:**
+
+To compile cross-platform binaries, make sure Go is installed, then install [goreleaser](https://goreleaser.com/) - follow instructions in the docs to do so.
+
+Then to cross-compile, run:
+
+`goreleaser`
+
+Binaries for each platform will be output to the `dist` folder.
+
 ## Usage
 
 First, generate an `ENVKEY` in the [EnvKey App](https://github.com/envkey/envkey-app).
