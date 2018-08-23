@@ -14,10 +14,10 @@ func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible
 		return "echo 'error: ENVKEY missing.'; false"
 	}
 
-	fetchRes := fetch.Fetch(envkey, options)
+	fetchRes, err := fetch.Fetch(envkey, options)
 
-	if strings.HasPrefix(fetchRes, "error: ") {
-		return "echo '" + fetchRes + "'; false"
+	if err != nil {
+		return "echo 'error: " + err.Error() + "'; false"
 	}
 
 	if fetchRes == "" {
@@ -25,7 +25,7 @@ func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible
 	}
 
 	var resMap map[string]string
-	err := json.Unmarshal([]byte(fetchRes), &resMap)
+	err = json.Unmarshal([]byte(fetchRes), &resMap)
 
 	if err != nil {
 		return "echo 'error: There was a problem parsing EnvKey's response.'; false"
