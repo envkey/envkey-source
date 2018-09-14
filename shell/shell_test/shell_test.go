@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const VALID_ENVKEY = "CeUWMgVdYnyx7TBCmA7t-28YX8LzjHpJuMbFt-env-staging.envkey.com"
+const VALID_ENVKEY = "wYv78UmHsfEu6jSqMZrU-3w1kwyF35nRYwsAJ-env-staging.envkey.com"
 const INVALID_ENVKEY = "Emzt4BE7C23QtsC7gb1z-3NvfNiG1Boy6XH2oinvalid-env-staging.envkey.com"
 
 func TestSource(t *testing.T) {
