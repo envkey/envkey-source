@@ -95,7 +95,7 @@ func init() {
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 	RootCmd.Flags().StringVar(&envFile, "env-file", ".env", "ENVKEY-containing env file name")
 	RootCmd.Flags().BoolVar(&verboseOutput, "verbose", false, "print verbose output (default is false)")
-	RootCmd.Flags().Float64Var(&timeoutSeconds, "timeout", 2.0, "timeout in seconds for http requests")
+	RootCmd.Flags().Float64Var(&timeoutSeconds, "timeout", 10.0, "timeout in seconds for http requests")
 
 	RootCmd.Flags().BoolVar(&pamCompatible, "pam-compatible", false, "change output format to be compatible with /etc/environment on Linux")
 
