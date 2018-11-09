@@ -40,6 +40,8 @@ var printVersion bool
 var pamCompatible bool
 var verboseOutput bool
 var timeoutSeconds float64
+var retries uint8
+var retryBackoff float64
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -67,7 +69,7 @@ You can also pass an ENVKEY directly (not recommended for real workflows):
 			}
 		}
 
-		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version, verboseOutput, timeoutSeconds}
+		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version, verboseOutput, timeoutSeconds, retries, retryBackoff}
 		if len(args) > 0 {
 			fmt.Println(shell.Source(args[0], force, opts, pamCompatible))
 		} else {
@@ -96,7 +98,8 @@ func init() {
 	RootCmd.Flags().StringVar(&envFile, "env-file", ".env", "ENVKEY-containing env file name")
 	RootCmd.Flags().BoolVar(&verboseOutput, "verbose", false, "print verbose output (default is false)")
 	RootCmd.Flags().Float64Var(&timeoutSeconds, "timeout", 10.0, "timeout in seconds for http requests")
-
+	RootCmd.Flags().Uint8Var(&retries, "retries", 3, "number of times to retry requests on failure")
+	RootCmd.Flags().Float64Var(&retryBackoff, "retryBackoff", 1, "retry backoff factor: {retryBackoff} * (2 ^ {retries - 1})")
 	RootCmd.Flags().BoolVar(&pamCompatible, "pam-compatible", false, "change output format to be compatible with /etc/environment on Linux")
 
 	// differences between bash syntax and the /etc/environment format, as parsed by PAM

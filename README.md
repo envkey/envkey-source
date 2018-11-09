@@ -55,16 +55,18 @@ echo "$SOME_VAR"
 ### Flags
 
 ```text
-    --cache              cache encrypted config as a local backup (default is true when .env file exists, false otherwise)
-    --no-cache           do NOT cache encrypted config as a local backup even when .env file exists
-    --cache-dir string   cache directory (default is $HOME/.envkey/cache)
-    --env-file string    ENVKEY-containing env file name (default ".env")
-    --pam-compatible     change output format to be compatible with /etc/environment on Linux
--f, --force              overwrite existing environment variables and/or other entries in .env file
--h, --help               help for envkey-source
--v, --version            prints the version
-    --verbose            print verbose output (default is false)
-    --timeout float      timeout in seconds for http requests (default 2)
+    --cache                cache encrypted config as a local backup (default is true when .env file exists, false otherwise)
+    --no-cache             do NOT cache encrypted config as a local backup even when .env file exists
+    --cache-dir string     cache directory (default is $HOME/.envkey/cache)
+    --env-file string      ENVKEY-containing env file name (default ".env")
+    --pam-compatible       change output format to be compatible with /etc/environment on Linux
+-f, --force                overwrite existing environment variables and/or other entries in .env file
+-h, --help                 help for envkey-source
+-v, --version              prints the version
+    --verbose              print verbose output (default is false)
+    --timeout float        timeout in seconds for http requests (default 2)
+    --retries uint8        number of times to retry requests on failure (default 3)
+    --retryBackoff float   retry backoff factor: {retryBackoff} * (2 ^ {retries - 1}) (default 1)
 ```
 
 ### Errors
