@@ -38,6 +38,7 @@ var shouldNotCache bool
 var force bool
 var printVersion bool
 var pamCompatible bool
+var dotEnvCompatible bool
 var verboseOutput bool
 var timeoutSeconds float64
 var retries uint8
@@ -71,11 +72,11 @@ You can also pass an ENVKEY directly (not recommended for real workflows):
 
 		opts := fetch.FetchOptions{cacheEnabled, cacheDir, "envkey-source", version.Version, verboseOutput, timeoutSeconds, retries, retryBackoff}
 		if len(args) > 0 {
-			fmt.Println(shell.Source(args[0], force, opts, pamCompatible))
+			fmt.Println(shell.Source(args[0], force, opts, pamCompatible, dotEnvCompatible))
 		} else {
 			godotenv.Load(envFile)
 			envkey := os.Getenv("ENVKEY")
-			fmt.Println(shell.Source(envkey, force, opts, pamCompatible))
+			fmt.Println(shell.Source(envkey, force, opts, pamCompatible, dotEnvCompatible))
 		}
 	},
 }
@@ -101,6 +102,7 @@ func init() {
 	RootCmd.Flags().Uint8Var(&retries, "retries", 3, "number of times to retry requests on failure")
 	RootCmd.Flags().Float64Var(&retryBackoff, "retryBackoff", 1, "retry backoff factor: {retryBackoff} * (2 ^ {retries - 1})")
 	RootCmd.Flags().BoolVar(&pamCompatible, "pam-compatible", false, "change output format to be compatible with /etc/environment on Linux")
+	RootCmd.Flags().BoolVar(&dotEnvCompatible, "dot-env-compatible", false, "change output to .env format")
 
 	// differences between bash syntax and the /etc/environment format, as parsed by PAM
 	// (https://github.com/linux-pam/linux-pam/blob/master/modules/pam_env/pam_env.c#L194)
