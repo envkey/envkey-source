@@ -9,7 +9,7 @@ import (
 	"github.com/envkey/envkey-fetch/fetch"
 )
 
-func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible bool) string {
+func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible bool, dotEnvCompatible bool) string {
 	if envkey == "" {
 		return "echo 'error: ENVKEY missing.'; false"
 	}
@@ -36,7 +36,7 @@ func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible
 	}
 
 	var res string
-	if pamCompatible {
+	if pamCompatible || dotEnvCompatible {
 		res = ""
 	} else {
 		res = "export"
@@ -78,6 +78,8 @@ func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible
 			}
 			// Do not quote keys, but quote values.
 			res = res + "export " + key + "='" + val + "'"
+		} else if dotEnvCompatible {
+			res = res + key + "='" + val + "'" + "\n"
 		} else {
 			// Quote both keys and values.
 			res = res + " '" + key + "'='" + val + "'"

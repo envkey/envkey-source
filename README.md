@@ -58,6 +58,7 @@ echo "$SOME_VAR"
     --cache                cache encrypted config as a local backup (default is true when .env file exists, false otherwise)
     --no-cache             do NOT cache encrypted config as a local backup even when .env file exists
     --cache-dir string     cache directory (default is $HOME/.envkey/cache)
+    --dot-env-compatible   change output to .env format
     --env-file string      ENVKEY-containing env file name (default ".env")
     --pam-compatible       change output format to be compatible with /etc/environment on Linux
 -f, --force                overwrite existing environment variables and/or other entries in .env file
