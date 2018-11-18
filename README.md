@@ -65,7 +65,7 @@ echo "$SOME_VAR"
 -h, --help                 help for envkey-source
 -v, --version              prints the version
     --verbose              print verbose output (default is false)
-    --timeout float        timeout in seconds for http requests (default 2)
+    --timeout float        timeout in seconds for http requests (default 10)
     --retries uint8        number of times to retry requests on failure (default 3)
     --retryBackoff float   retry backoff factor: {retryBackoff} * (2 ^ {retries - 1}) (default 1)
 ```
