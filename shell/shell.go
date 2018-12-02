@@ -79,7 +79,7 @@ func Source(envkey string, force bool, options fetch.FetchOptions, pamCompatible
 			// Do not quote keys, but quote values.
 			res = res + "export " + key + "='" + val + "'"
 		} else if dotEnvCompatible {
-			res = res + key + "='" + val + "'" + "\n"
+			res = res + key + "=" + val + "\n"
 		} else {
 			// Quote both keys and values.
 			res = res + " '" + key + "'='" + val + "'"
