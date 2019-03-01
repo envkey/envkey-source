@@ -9,5 +9,5 @@ export GITHUB_TOKEN=$(cat .ghtoken)
 goreleaser --rm-dist
 sed -i '' "s/${version}/VERSION/" version/version.go
 git add .
-git commit --amend --no-edit
+git commit --amend --no-edit --allow-empty
 git push
