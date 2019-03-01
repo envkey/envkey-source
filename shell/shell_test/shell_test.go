@@ -25,6 +25,11 @@ func TestSource(t *testing.T) {
 	validRes3 := shell.Source(VALID_ENVKEY, true, fetch.FetchOptions{false, "", "envkey-source", version.Version, false, 2.0, 1, 0.1}, false, true)
 	assert.Equal(t, "TEST='it'\nTEST_2='works!'\nTEST_INJECTION=''\"'\"'$(uname)'\nTEST_SINGLE_QUOTES='this'\"'\"' is ok'\nTEST_SPACES='it does work!'\nTEST_STRANGE_CHARS='with quotes ` '\"'\"' \\\" bäh'\n", validRes3)
 
+	// Test --verbose flag
+	assert.NotPanics(t, func() {
+		shell.Source(VALID_ENVKEY, true, fetch.FetchOptions{false, "", "envkey-source", version.Version, true, 2.0, 1, 0.1}, false, false)
+	})
+
 	// Test invalid
 	invalidRes := shell.Source(INVALID_ENVKEY, true, fetch.FetchOptions{false, "", "envkey-source", version.Version, false, 2.0, 1, 0.1}, false, false)
 	assert.Equal(t, "echo 'error: ENVKEY invalid'; false", invalidRes)
