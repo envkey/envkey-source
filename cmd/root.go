@@ -98,7 +98,7 @@ func init() {
 	RootCmd.Flags().StringVar(&cacheDir, "cache-dir", "", "cache directory (default is $HOME/.envkey/cache)")
 	RootCmd.Flags().StringVar(&envFile, "env-file", ".env", "ENVKEY-containing env file name")
 	RootCmd.Flags().BoolVar(&verboseOutput, "verbose", false, "print verbose output (default is false)")
-	RootCmd.Flags().Float64Var(&timeoutSeconds, "timeout", 10.0, "timeout in seconds for http requests")
+	RootCmd.Flags().Float64Var(&timeoutSeconds, "timeout", 20.0, "timeout in seconds for http requests")
 	RootCmd.Flags().Uint8Var(&retries, "retries", 3, "number of times to retry requests on failure")
 	RootCmd.Flags().Float64Var(&retryBackoff, "retryBackoff", 1, "retry backoff factor: {retryBackoff} * (2 ^ {retries - 1})")
 	RootCmd.Flags().BoolVar(&pamCompatible, "pam-compatible", false, "change output format to be compatible with /etc/environment on Linux")
