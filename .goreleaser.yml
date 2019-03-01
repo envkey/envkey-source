@@ -3,6 +3,7 @@ builds:
     ldflags: '-extldflags "-static"'
     env:
       - CGO_ENABLED=0
+      - GOROOT_FINAL=/usr/go
     goos:
       - darwin
       - linux
