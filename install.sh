@@ -49,7 +49,7 @@ rm .ek_tmp_version
 
 welcome_envkey () {
   echo "envkey-source $VERSION Quick Install"
-  echo "Copyright (c) 2017 Envkey Inc. - MIT License"
+  echo "Copyright (c) 2019 Envkey Inc. - MIT License"
   echo "https://github.com/envkey/envkey-source"
   echo ""
 }
