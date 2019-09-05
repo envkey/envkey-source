@@ -4,7 +4,7 @@ Integrate [EnvKey](https://www.envkey.com) with any language, either in developm
 
 ## Installation
 
-envkey-source compiles into a simple static binary with no dependencies, which makes installation a simple matter of fetching the right binary for your platform and putting it in your `PATH`. An `install.sh` script is available to simplify this.
+envkey-source compiles into a simple static binary with no dependencies, which makes installation a simple matter of fetching the right binary for your platform and putting it in your `PATH`. An `install.sh` script is available to simplify this, as well as a [homebrew tap](https://github.com/envkey/homebrew-envkey).
 
 **Install via bash:**
 
