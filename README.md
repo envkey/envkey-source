@@ -12,6 +12,8 @@ envkey-source compiles into a simple static binary with no dependencies, which m
 curl -s https://raw.githubusercontent.com/envkey/envkey-source/master/install.sh | bash
 ```
 
+***Note:** the install.sh script writes, then deletes a couple temporary files to the current directory during installation, so make sure you have write permissions for whatever directory you run this command in. In locked down environments, you may want to run it in `$HOME` to be safe.*
+
 **Install via [homebrew](https://brew.sh/) tap:**
 
 Either tap the [homebrew-envkey](https://github.com/envkey/homebrew-envkey) repo first, then install:
@@ -26,8 +28,6 @@ Or you can install the formula directly:
 ```bash
 brew install envkey/envkey/envkey-source
 ```
-
-***Note:** the install.sh script writes, then deletes a couple temporary files to the current directory during installation, so make sure you have write permissions for whatever directory you run this command in. In locked down environments, you may want to run it in `$HOME` to be safe.*
 
 **Install manually:**
 
