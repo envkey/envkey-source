@@ -14,21 +14,6 @@ curl -s https://raw.githubusercontent.com/envkey/envkey-source/master/install.sh
 
 ***Note:** the install.sh script writes, then deletes a couple temporary files to the current directory during installation, so make sure you have write permissions for whatever directory you run this command in. In locked down environments, you may want to run it in `$HOME` to be safe.*
 
-**Install via [homebrew](https://brew.sh/) tap:**
-
-Either tap the [homebrew-envkey](https://github.com/envkey/homebrew-envkey) repo first, then install:
-
-```bash
-brew tap envkey/envkey
-brew install envkey-source
-```
-
-Or you can install the formula directly:
-
-```bash
-brew install envkey/envkey/envkey-source
-```
-
 **Install manually:**
 
 Find the [release](https://github.com/envkey/envkey-source/releases) for your platform and architecture, and stick the appropriate binary somewhere in your `PATH` (or wherever you like really).
