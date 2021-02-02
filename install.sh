@@ -37,6 +37,11 @@ else
   ARCH="386"
 fi
 
+# workaround to use amd64 binary for apple m1 until go supports darwin_arm64 natively
+if [ $PLATFORM == "darwin" ] && [ $ARCH == "arm64" ]; then
+  ARCH="amd64"
+fi
+
 if [[ "$(cat /proc/1/cgroup 2> /dev/null | grep docker | wc -l)" > 0 ]] || [ -f /.dockerenv ]; then
   IS_DOCKER=true
 else
@@ -49,7 +54,7 @@ rm .ek_tmp_version
 
 welcome_envkey () {
   echo "envkey-source $VERSION Quick Install"
-  echo "Copyright (c) 2020 Envkey Inc. - MIT License"
+  echo "Copyright (c) 2021 Envkey Inc. - MIT License"
   echo "https://github.com/envkey/envkey-source"
   echo ""
 }
