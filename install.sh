@@ -61,9 +61,17 @@ cleanup () {
 
 download_envkey () {
   echo "Downloading envkey-source binary for ${PLATFORM}-${ARCH}"
-  url="https://github.com/envkey/envkey-source/releases/download/v${VERSION}/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
-  echo "Downloading tarball from ${url}"
+  url="https://github.com/envkey/envkey-source/releases/download/v${VERSION}/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"  
+  
+  echo "Downloading tarball from Github Releases: ${url}"
   curl -s -L -o envkey-source.tar.gz "${url}"
+
+  if [ ! -f envkey-source.tar.gz ]; then
+    echo "Couldn't load tarball from Github Releases: ${url}"
+    url="https://envkey-source-releases.s3.amazonaws.com/envkey-source_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
+    echo "Now attempting to load from s3 bucket backup: ${url}"
+    curl -s -L -o envkey-source.tar.gz "${url}"
+  fi  
 
   tar zxf envkey-source.tar.gz envkey-source.exe 2> /dev/null
   tar zxf envkey-source.tar.gz envkey-source 2> /dev/null

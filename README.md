@@ -14,6 +14,8 @@ curl -s https://raw.githubusercontent.com/envkey/envkey-source/master/install.sh
 
 ***Note:** the install.sh script writes, then deletes a couple temporary files to the current directory during installation, so make sure you have write permissions for whatever directory you run this command in. In locked down environments, you may want to run it in `$HOME` to be safe.*
 
+***Another Note:** the install.sh script downloads the appropriate envkey-source binary from Github Releases by default, but Github has a fairly low rate limit for unauthenticated requests. For added redundancy, it will fail over to envkey-source-releases.s3.amazonaws.com (an S3 bucket controlled by EnvKey) and download the binary from there if the request to Github Releases fails.*
+
 **Install manually:**
 
 Find the [release](https://github.com/envkey/envkey-source/releases) for your platform and architecture, and stick the appropriate binary somewhere in your `PATH` (or wherever you like really).
