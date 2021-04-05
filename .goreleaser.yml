@@ -1,6 +1,8 @@
 builds:
   - binary: envkey-source
-    ldflags: '-extldflags "-static"'
+    ldflags:
+      - '-s -w'
+      - '-extldflags "-static"'
     env:
       - CGO_ENABLED=0
       - GOROOT_FINAL=/usr/go
