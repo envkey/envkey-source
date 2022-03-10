@@ -2,6 +2,12 @@
 
 Integrate [EnvKey](https://www.envkey.com) with any language, either in development or on a server, by making your configuration available through the shell as environment variables.
 
+# v2
+
+Now that [EnvKey v2](https://v2.envkey.com) has been released, you can find version 2 of envkey-source in [a subdirectory of the EnvKey v2 monorepo](https://github.com/envkey/envkey/tree/main/public/sdks/envkey-source). Using v2 requires an EnvKey v2 organization (it won't work with ENVKEYs generated in a v1 org).
+
+[Here's a guide on migrating from v1 to v2.](https://docs-v2.envkey.com/docs/migrating-from-v1)
+
 ## Installation
 
 envkey-source compiles into a simple static binary with no dependencies, which makes installation a simple matter of fetching the right binary for your platform and putting it in your `PATH`. An `install.sh` script is available to simplify this, as well as a [homebrew tap](https://github.com/envkey/homebrew-envkey).
